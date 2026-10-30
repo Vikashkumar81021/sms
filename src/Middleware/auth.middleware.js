@@ -9,6 +9,7 @@ const authMiddleware = (req, res, next) => {
     if (!token) {
       throw new UnAuthorizedError(ERROR_MESSAGE.UNAUTHORISED);
     }
+
     const decoded = jwt.verify(token, process.env.JWT_ACCESS_SECRET_KEY);
     req.user = decoded;
     next();
