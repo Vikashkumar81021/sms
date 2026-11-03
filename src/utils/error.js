@@ -1,4 +1,4 @@
-import { STATUS_CODE } from "../constants/status.code.js";
+import { STATUS_CODE } from "../constant/status.code.js";
 class ApiError extends Error {
   constructor(message, statusCode, code) {
     super(message);
