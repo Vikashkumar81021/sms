@@ -37,15 +37,17 @@ model User {
   updatedAt       DateTime @updatedAt
 }
 
-model School{
-   id              Int      @id @default(autoincrement())
-   schoolName     String
-   schoolCode      Int
-   address       String
-   city         String
-   state         String
-   pinCode        String
-   contactNumber   String
-   email        String
-   affiliationBoard    String
+model School {
+  id               Int      @id @default(autoincrement())
+  schoolName       String
+  schoolCode       Int      @unique
+  address          String
+  city             String
+  state            String
+  pinCode          String
+  contactNumber    String
+  email            String   @unique
+  affiliationBoard String
+  createdAt        DateTime @default(now())
+  updatedAt        DateTime @updatedAt
 }
