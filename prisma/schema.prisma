@@ -24,6 +24,16 @@ enum Status {
   SUSPENDED
 }
 
+enum SubjectType {
+  THEORY
+  PRACTICAL
+}
+
+enum SubjectCategory {
+  CORE
+  OPTIONAL
+}
+
 model User {
   id              Int      @id @default(autoincrement())
   userName        String
@@ -50,6 +60,7 @@ model School {
   affiliationBoard String
   academicSessions AcademicSession[]
   classes          SchoolClass[]
+  subjects         Subject[]
   createdAt        DateTime @default(now())
   updatedAt        DateTime @updatedAt
 }
@@ -82,6 +93,7 @@ model SchoolClass {
   school       School   @relation(fields: [schoolId], references: [id], onDelete: Cascade)
 
   sections     Section[]
+  subjectMappings  ClassSubject[]
   createdAt    DateTime @default(now())
   updatedAt    DateTime @updatedAt
 
@@ -105,4 +117,40 @@ model Section {
 
   @@unique([classId, sectionName])
   @@index([classId])
+}
+
+model Subject {
+  id            Int             @id @default(autoincrement())
+  subjectName   String
+  subjectCode   String
+  subjectType   SubjectType     @default(THEORY)
+  subjectCategory SubjectCategory @default(CORE)
+
+  schoolId      Int
+  school        School          @relation(fields: [schoolId], references: [id], onDelete: Cascade)
+
+  classMappings ClassSubject[]
+
+  createdAt     DateTime        @default(now())
+  updatedAt     DateTime        @updatedAt
+
+  @@unique([schoolId, subjectName])
+  @@unique([schoolId, subjectCode])
+  @@index([schoolId])
+}
+
+model ClassSubject {
+  id        Int        @id @default(autoincrement())
+
+  classId   Int
+  subjectId Int
+
+  schoolClass SchoolClass @relation(fields: [classId], references: [id], onDelete: Cascade)
+  subject     Subject     @relation(fields: [subjectId], references: [id], onDelete: Cascade)
+
+  createdAt DateTime @default(now())
+
+  @@unique([classId, subjectId])
+  @@index([classId])
+  @@index([subjectId])
 }

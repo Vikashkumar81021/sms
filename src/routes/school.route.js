@@ -10,10 +10,10 @@ import {
 
 const router = express.Router();
 
-router.post("/create", createSchoolController);
-router.get("/fetch", getAllSchoolsController);
-router.get("/:id", getSchoolByIdController);
-router.patch("/:id", updateSchoolController);
-router.delete("/:id", deleteSchoolController);
+router.post("/createschool", createSchoolController);
+router.get("/fetchallschool", getAllSchoolsController);
+router.get("/fetchschool/:id", getSchoolByIdController);
+router.patch("/updateschool/:id", updateSchoolController);
+router.delete("/deleteschool/:id", deleteSchoolController);
 
 export default router;

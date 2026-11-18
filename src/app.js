@@ -7,6 +7,7 @@ import schoolRoute from "./routes/school.route.js";
 import  academicSession  from "./routes/academicSession.route.js"; 
 import classRoute from "./routes/class.route.js";
 import sectionRoute from "./routes/section.route.js";
+import subjectRoute from "./routes/subject.route.js";
 
 dotenv.config();
 
@@ -21,6 +22,7 @@ app.use("/api/v1", sectionRoute);
 app.use("/api/v1", schoolRoute);
 app.use("/api/v1", academicSession);
 app.use("/api/v1",classRoute);
+app.use("/api/v1", subjectRoute);
 
 
 app.get("/", (req, res) => {
