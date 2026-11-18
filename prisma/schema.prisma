@@ -48,6 +48,61 @@ model School {
   contactNumber    String
   email            String   @unique
   affiliationBoard String
+  academicSessions AcademicSession[]
+  classes          SchoolClass[]
   createdAt        DateTime @default(now())
   updatedAt        DateTime @updatedAt
+}
+
+model AcademicSession {
+  id          Int      @id @default(autoincrement())
+  sessionName String
+
+  schoolId    Int
+  school      School   @relation(fields: [schoolId], references: [id], onDelete: Cascade)
+
+  startDate   DateTime
+  endDate     DateTime
+  isActive    Boolean  @default(false)
+
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@unique([schoolId, sessionName])
+}
+
+model SchoolClass {
+  id           Int      @id @default(autoincrement())
+  className    String
+  classCode    String
+  displayOrder Int      @default(0)
+  isActive     Boolean  @default(true)
+
+  schoolId     Int
+  school       School   @relation(fields: [schoolId], references: [id], onDelete: Cascade)
+
+  sections     Section[]
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  @@unique([schoolId, className])
+  @@unique([schoolId, classCode])
+  @@index([schoolId])
+}
+
+model Section {
+  id             Int        @id @default(autoincrement())
+  sectionName    String
+  classTeacher   String?
+  roomNumber     String?
+  studentCapacity Int       @default(40)
+
+  classId        Int
+  schoolClass    SchoolClass @relation(fields: [classId], references: [id], onDelete: Cascade)
+
+  createdAt      DateTime   @default(now())
+  updatedAt      DateTime   @updatedAt
+
+  @@unique([classId, sectionName])
+  @@index([classId])
 }

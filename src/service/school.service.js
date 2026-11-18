@@ -43,17 +43,19 @@ const getAllSchools = async () => {
 };
 
 const getSchoolById = async (id) => {
-  const school = await prisma.school.findUnique({
-    where: {
-      id,
-    },
-  });
+  console.log("here");
+  
+  // const school = await prisma.school.findUnique({
+  //   // where: {
+  //   //   id,
+  //   // },
+  // });
 
-  if (!school) {
-    throw new NotFoundError("School not found");
-  }
+  // if (!school) {
+  //   throw new NotFoundError("School not found");
+  // }
 
-  return school;
+  // return school;
 };
 
 const updateSchool = async (id, data) => {
